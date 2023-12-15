@@ -1177,7 +1177,7 @@ class Wrapper:
                 else:
                     self._endReq(reqId)
 
-            if trade:
+            elif trade:
                 # something is wrong with the order, cancel it
                 if advancedOrderRejectJson:
                     trade.advancedError = advancedOrderRejectJson
