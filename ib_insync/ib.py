@@ -657,7 +657,6 @@ class IB:
             order: The order to be placed.
         """
         orderId = order.orderId or self.client.getReqId()
-        self.client.placeOrder(orderId, contract, order)
         now = datetime.datetime.now(datetime.timezone.utc)
         key = self.wrapper.orderKey(
             self.wrapper.clientId, orderId, order.permId)
@@ -681,6 +680,7 @@ class IB:
             self.wrapper.trades[key] = trade
             self._logger.info(f'placeOrder: New order {trade}')
             self.newOrderEvent.emit(trade)
+        self.client.placeOrder(orderId, contract, order)
         return trade
 
     def cancelOrder(self, order: Order, manualCancelOrderTime: str = '') \
